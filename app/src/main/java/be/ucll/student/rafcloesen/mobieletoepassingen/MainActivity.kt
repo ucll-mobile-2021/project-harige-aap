@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         item.text = "Hello World!"
         todoList.addView(item)
 
-        model.getTodos().observe(
+        model.todos.observe(
             this,
             { todos -> item.text = todos.first() })
     }

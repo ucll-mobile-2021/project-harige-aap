@@ -9,11 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
-    private val todos = MutableLiveData<List<String>>()
-
-    fun getTodos(): LiveData<List<String>> {
-        return todos
-    }
+    private val _todos = MutableLiveData<List<String>>()
+    val todos: LiveData<List<String>> = _todos
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -22,7 +19,7 @@ class MainViewModel : ViewModel() {
             val database = mongoClient.getDatabase("todo")
             val collection = database.getCollection("main_list")
             val document = collection.find().first()
-            todos.postValue(document?.get("item")?.let { mutableListOf(it.toString()) })
+            _todos.postValue(document?.get("item")?.let { mutableListOf(it.toString()) })
         }
     }
 }
