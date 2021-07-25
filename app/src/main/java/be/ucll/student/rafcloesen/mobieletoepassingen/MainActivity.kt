@@ -12,12 +12,16 @@ class MainActivity : AppCompatActivity() {
 
         val model = MainViewModel(TodoRepository())
         val todoList = findViewById<LinearLayout>(R.id.todoList)
-        val item = TextView(this)
-        item.text = "Hello World!"
-        todoList.addView(item)
 
         model.todos.observe(
             this,
-            { todos -> item.text = todos.first().item })
+            { todos ->
+                todos.forEach { todo ->
+                    val item = TextView(this)
+                    item.text = todo.item
+                    todoList.addView(item)
+                }
+            }
+        )
     }
 }
