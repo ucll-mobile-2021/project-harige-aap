@@ -18,9 +18,13 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         model.todos.observe(
             viewLifecycleOwner,
             { todos ->
+                todoList.removeAllViews()
                 todos.forEach { todo ->
                     val item = TextView(view.context)
                     item.text = todo.item
+                    item.setOnClickListener {
+                        model.removeTodo(todo)
+                    }
                     todoList.addView(item)
                 }
             }
