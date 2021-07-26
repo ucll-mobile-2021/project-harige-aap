@@ -18,5 +18,9 @@
         android:id="@+id/newTodoFragment"
         android:name="be.ucll.student.rafcloesen.mobieletoepassingen.NewTodoFragment"
         android:label="new_todo_fragment"
-        tools:layout="@layout/new_todo_fragment" />
+        tools:layout="@layout/new_todo_fragment" >
+        <action
+            android:id="@+id/action_newTodoFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

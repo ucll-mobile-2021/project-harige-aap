@@ -3,7 +3,7 @@ package be.ucll.student.rafcloesen.mobieletoepassingen
 import org.litote.kmongo.KMongo
 import org.litote.kmongo.getCollection
 
-data class Todo(val id: Int, val item: String)
+data class Todo(val item: String)
 
 const val uri = "mongodb://192.168.1.105:27017/"
 
@@ -15,5 +15,9 @@ class TodoRepository {
     fun getTodos(): List<Todo> {
         val collection = database.getCollection<Todo>("main_list")
         return collection.find().toList()
+    }
+
+    fun addTodo(todo: Todo) {
+        database.getCollection<Todo>("main_list").insertOne(todo)
     }
 }
