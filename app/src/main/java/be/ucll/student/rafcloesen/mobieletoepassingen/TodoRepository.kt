@@ -13,16 +13,23 @@ class TodoRepository {
     private val client = KMongo.createClient(uri)
     private val database = client.getDatabase("todo")
 
-    fun getTodos(): List<Todo> {
-        val collection = database.getCollection<Todo>("main_list")
-        return collection.find().toList()
+    fun getListNames(): List<String> {
+        return database.listCollectionNames().toList()
     }
 
-    fun addTodo(todo: Todo) {
-        database.getCollection<Todo>("main_list").insertOne(todo)
+    fun getList(list: String): List<Todo> {
+        return database.getCollection<Todo>(list).find().toList()
     }
 
-    fun removeTodo(todo: Todo) {
-        database.getCollection<Todo>("main_list").deleteOne(Todo::item eq todo.item)
+    fun removeList(list: String) {
+        database.getCollection(list).drop()
+    }
+
+    fun addTodo(todo: Todo, list: String) {
+        database.getCollection<Todo>(list).insertOne(todo)
+    }
+
+    fun removeTodo(todo: Todo, list: String) {
+        database.getCollection<Todo>(list).deleteOne(Todo::item eq todo.item)
     }
 }

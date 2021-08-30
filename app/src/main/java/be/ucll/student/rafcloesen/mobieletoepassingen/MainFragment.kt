@@ -1,8 +1,10 @@
 package be.ucll.student.rafcloesen.mobieletoepassingen
 
 import android.os.Bundle
+import android.view.Gravity.CENTER_HORIZONTAL
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.LinearLayout.VERTICAL
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -13,19 +15,35 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         val model = MainViewModel(TodoRepository())
-        val todoList : LinearLayout = view.findViewById(R.id.todoList)
+        val listsView : LinearLayout = view.findViewById(R.id.todoLists)
 
         model.todos.observe(
             viewLifecycleOwner,
             { todos ->
-                todoList.removeAllViews()
-                todos.forEach { todo ->
-                    val item = TextView(view.context)
-                    item.text = todo.item
-                    item.setOnClickListener {
-                        model.removeTodo(todo)
+                listsView.removeAllViews()
+                todos.forEach { (listName, list) ->
+                    val listView = LinearLayout(view.context)
+                    listView.orientation = VERTICAL
+
+                    val title = TextView(view.context)
+                    title.text = listName
+                    title.gravity = CENTER_HORIZONTAL
+                    title.textSize = 24f
+
+                    title.setOnClickListener {
+                        model.removeList(listName)
                     }
-                    todoList.addView(item)
+
+                    listView.addView(title)
+                    list.forEach { todo ->
+                        val item = TextView(view.context)
+                        item.text = todo.item
+                        item.setOnClickListener {
+                            model.removeTodo(todo, listName)
+                        }
+                        listView.addView(item)
+                    }
+                    listsView.addView(listView)
                 }
             }
         )
