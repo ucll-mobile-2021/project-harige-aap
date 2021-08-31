@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Mobiele Toepassingen</string>
+    <string name="title">All TODO lists</string>
+    <string name="add_item_fab">Add TODO item</string>
+    <string name="def_list">main</string>
+    <string name="list_label">List name: </string>
+    <string name="content_label">TODO: </string>
+    <string name="submit">Submit</string>
 </resources>

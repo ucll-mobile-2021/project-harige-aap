@@ -14,7 +14,8 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TODO"
+            android:text="@string/title"
+            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -51,7 +52,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:contentDescription="Add TODO item"
+        android:contentDescription="@string/add_item_fab"
         android:focusable="true"
         app:srcCompat="@android:drawable/ic_input_add" />
 
